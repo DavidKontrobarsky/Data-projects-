@@ -1,0 +1,178 @@
+---
+title: "ETC2410 Assignment 1"
+author: David Kontrobarsky, Amy Corrone, Wendy Huynh, Chandralekha Segaran, Joshua
+  Bunce
+date: "31 August 2018"
+output:
+  pdf_document: default
+  html_document:
+    df_print: paged
+  word_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+#QUESTION 1
+
+Assumptions for all estimators:
+
+##a)                                                
+
+
+$$\begin{gathered} Population \ relationships : \\y _ { t } = \beta _ { 0 } + \beta _ { 1 } x _ { t } + u _ { t } \\ \overline { y } = \beta _ { 0 } + \beta _ { 1 } \overline { x } + \overline { u }\\ Y _ { 1 } = \beta _ { 0 } + \beta _ { 1 } x _ { 1 } + u _ { 1 }\ (First \ observation)\\Y _ { n } = \beta _ { 0 } + \beta _ { 1 } x _ { n } + u _ { n } \ (Last \ observation) \end{gathered}$$
+
+
+$$E(u \ | \ X) = 0$$
+
+###1.)
+
+$$\begin{gathered} \hat{\beta^{[1]}} =  \frac{\frac{1}{n} \sum_{t=1}^{n} y_{t}}{\frac{1}{n} \sum_{t=1}^{n} x_{t}}  \end{gathered} =$$
+$$\begin{gathered} =  \frac{ \sum_{t=1}^{n} y_{t}}{ \sum_{t=1}^{n} x_{t}}  \end{gathered} $$
+Substitute $y_t$ from above:
+
+$$\begin{gathered} =  \frac{ \sum_{t=1}^{n} \beta _ { 0 } + \beta _ { 1 } x _ { t } + u _ { t }}{ \sum_{t=1}^{n} x_{t}}  \end{gathered} $$
+
+Convert to a sum of fractions and take $\beta_1$ out of the sum
+
+$$ = \frac {  \beta _ { 1 }\sum_{t=1}^{n} x_t  } {    \sum_{t=1}^{n} x_{t}  } + \frac{ \sum_{t=1}^{n} \beta _ { 0 } }{\sum_{t=1}^{n} x_{t}} + \frac{\sum_{t=1}^{n} u_t}{\sum_{t=1}^{n} x_{t}}$$
+$$ ={  \beta _ { 1 }  }  + \frac{ \sum_{t=1}^{n} \beta _ { 0 } }{\sum_{t=1}^{n} x_{t}} + \frac{\sum_{t=1}^{n} u_t}{\sum_{t=1}^{n} x_{t}}$$
+
+
+Take expectations conditional on x: 
+
+$$ \begin{gathered} E[\hat { \beta } _ { 1 } ^ { [ 1 ] }|x] = E[\beta_1] + E[\frac{ \sum_{t=1}^{n} \beta _ { 0 } }{\sum_{t=1}^{n} x_{t}}] + E[\frac{\sum_{t=1}^{n} u_t}{\sum_{t=1}^{n} x_{t}}] \\ \textrm{} \\= \beta_1 + E[\frac{ \sum_{t=1}^{n} \beta _ { 0 } }{\sum_{t=1}^{n} x_{t}}] + E[\frac{\sum_{t=1}^{n} u_t}{\sum_{t=1}^{n} x_{t}}] \\ \textrm{Note}: \sum_{t=1}^{n} \beta _ { 0 } = n\beta_0 \\ = \beta_1 + E[\frac{  n\beta _ { 0 } }{\sum_{t=1}^{n} x_{t}}] + E[\frac{\sum_{t=1}^{n} u_t}{\sum_{t=1}^{n} x_{t}}] \\ \\ \\= \beta_1 + E[\frac{  n\beta _ { 0 } }{\sum_{t=1}^{n} x_{t}}] + \frac{1}{\sum_{t=1}^{n} x_{t}}E[\sum_{t=1}^{n} u_t] \\ \textrm{Because} \sum_{t=1}^{n} x_{t} \   \textrm{can be treated as a constant given x} \\ = \beta_1 + \frac{  n\beta _ { 0 } }{\sum_{t=1}^{n} E[x_{t}]} + \frac{1}{\sum_{t=1}^{n} x_{t}}\sum_{t=1}^{n} E[u_t|X] \\ \textrm{Because the expectation of a sum is equal to the sum of indiviudal expectations} \\ = \beta_1 + \frac{  n\beta _ { 0 } }{\sum_{t=1}^{n} E[x_{t}]} \\ \textrm{Because }E[\ u\ | \ X] = 0 \implies E[\ u_t \ | \ X] = 0  \\ = \beta_1 + \frac{  n\beta _ { 0 } }{\sum_{t=1}^{n} x_{t}} \\ \textrm{Because the expectation of a constant is the constant itself } \end{gathered} $$
+
+Therefore $\hat{\beta^{[1]}} =  \frac{\frac{1}{n} \sum_{t=1}^{n} y_{t}}{\frac{1}{n} \sum_{t=1}^{n} x_{t}}$ is not an unbiased estimator of $\beta_{1}$
+
+
+
+
+
+
+
+
+
+
+
+###2.)
+$$\hat { \beta } _ { 1 } ^ { [ 2 ] } = \frac { y _ { n } - y _ { 1 } } { x _ { n } - x _ { 1 } }$$
+
+Substitute $Y_n \ and \ Y_n$ from above and simplify: 
+
+$$\begin{gathered}\hat { \beta } _ { 1 } ^ { [ 2 ] } =  \frac {  \left(\beta _ { 0 } + \beta _ { 1 } x _ { n } + u _ { n }   - (\beta _ { 0 } + \beta _ { 1 } { x_1 } + { u_1 } )  \right) } {   \left( X _ { n } -{ X_1 } \right)  } \\=   \frac {  \left( \beta _ { 1 } x _ { n } + u _ { n }   -  \beta _ { 1 } { x_1 } - { u_1 } )  \right) } {   \left( X _ { n } -{ X_1 } \right)  }\end{gathered}$$
+Factorise the $\beta _ { 1 }$ terms and convert to a sum of fractions then simplify:
+
+$$\hat { \beta } _ { 1 } ^ { [ 2 ] } = \frac {  \left( \beta _ { 1 }( x _ { n } - x_1) + u _ { n } - { u_1 } )  \right) } {   \left( X _ { n } -{ X_1 } \right)  }$$
+
+$$\hat { \beta } _ { 1 } ^ { [ 2 ] } = \frac {  \left( \beta _ { 1 }( X _ { n } - X_1) \right) } {   \left( X _ { n } -{ X_1 } \right) } + \frac{ u _ { n } - { u_1 }}{( X _ { n } - X_1)}$$
+
+$$\hat { \beta } _ { 1 } ^ { [ 2 ] } = \beta _ { 1 } + \frac{ u _ { n } - { u_1 }}{( X _ { n } - X_1)}$$
+
+Now take expectations conditional on X: 
+
+$$\begin{gathered}E[\hat { \beta } _ { 1 } ^ { [ 2 ] }|X] = E[\beta _ { 1 }] + E[\frac{ u _ { n } - { u_1 }}{( X _ { n } - X_1)}]\\ \textrm{Because the expectation of a sum is equal to the sum of indiviudal expectations} \\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \    =   \beta _ { 1 } + \frac{1}{X _ { n } - X_1}E[u _ { n } - { u_1 }] \\ \textrm{Because the X terms can be treated as constants given X } \\ \ \ \ \ \  \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =   \beta _ { 1 } + \frac{1}{ X _ { n } - X_1)}E[u_n] - \frac{1}{ X _ { n } - X_1}E[u_1] \\ = \beta_{1} + 0 + 0 \\ \textrm{Because }E[\ u\ | \ X] = 0 \implies E[\ u_1 \ | \ X] = 0  \ \textrm{and}  \ E[\ u_n \ | \ X] = 0 \\ = \beta_{1}\end{gathered}$$
+Therefore $\hat { \beta } _ { 1 } ^ { [ 2 ] } = \frac { y _ { n } - y _ { 1 } } { x _ { n } - x _ { 1 } }$ is an unbiased estimator of $\beta_{1}$
+
+###3.)
+
+$$ \hat { \beta } _ { 1 } ^ { [ 3 ] } = \frac{y_n - \overline{y}}{x_n - \overline{x}} $$
+
+Substitute $Y_n \ and \ Y_n$ from above and simplify: 
+
+$$\begin{gathered}\hat { \beta } _ { 1 } ^ { [ 3 ] } =  \frac {  \left(\beta _ { 0 } + \beta _ { 1 } x _ { n } + u _ { n }   - (\beta _ { 0 } + \beta _ { 1 } { \overline{x} } + { \overline{u} } )  \right) } {   \left( X _ { n } -\overline{X} \right)  } \\=   \frac {  \left( \beta _ { 1 } x _ { n } + u _ { n }   -  \beta _ { 1 } { \overline{x} } - { \overline{u} }   \right) } {   \left( X _ { n } -{ \overline{X} } \right)  } \end{gathered}$$
+Factorise the $\beta _ { 1 }$ terms and convert to a sum of fractions then simplify:
+
+$$\hat { \beta } _ { 1 } ^ { [ 3 ] } = \frac {  \left( \beta _ { 1 }( x _ { n } - \overline{x}) + u _ { n } - { \overline{u} } )  \right) } {   \left( X _ { n } -{ \overline{x} } \right)  }$$
+
+$$\hat { \beta } _ { 1 } ^ { [ 3 ] } = \frac {   \beta _ { 1 }( X _ { n } - \overline{X})  } {   \left( X _ { n } -{ \overline{X} } \right) } + \frac{ u _ { n } - { \overline{u} }}{( X _ { n } - \overline{X})}$$
+
+$$\hat { \beta } _ { 1 } ^ { [ 3 ] } = \beta _ { 1 } + \frac{ u _ { n } - { \overline{u} }}{( X _ { n } - \overline{X})}$$
+
+Now take expectations conditional on X: 
+
+$$\begin{gathered}E[\hat { \beta } _ { 1 } ^ { [ 3 ] }|X] = E[\beta _ { 1 }] + E[\frac{ u _ { n } - { \overline{u} }}{( X _ { n } - \overline{X})}]\\ \textrm{Because the expectation of a sum is equal to the sum of indiviudal expectations} \\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \    =   \beta _ { 1 } + \frac{1}{X _ { n } - \overline{X}}E[u _ { n } - { \overline{u} }] \\ \textrm{Because the X terms can be treated as constants given X } \\ \ \ \ \ \  \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ =   \beta _ { 1 } + \frac{1}{ X _ { n } - X_1}E[u_n] - \frac{1}{ X _ { n } - X_1)}E[\overline{u}] \\ = \beta_{1} + 0 + 0 \\ \textrm{Because }E[\ u\ | \ X] = 0 \implies E[\ u_n \ | \ X] = 0  \ \textrm{and}  \ E[\ \overline{u} \ | \ X] = 0 \\ = \beta_{1}\end{gathered}$$
+
+Therefore $\hat { \beta } _ { 1 } ^ { [ 3 ] } = \frac{y_n - \overline{y}}{x_n - \overline{x}}$ is an unbiased estimator of $\beta_{1}$
+
+###4.)
+
+
+
+$$ \hat { \beta } _ { 1 } ^ { [ 4 ] } = \frac { \hat { \sigma } _ { x , y } } { \hat { \sigma } _ { x } ^ { 2 } } = \frac{Cov(X,Y)}{Var(X)}$$
+Rewrite the covariance and variance as their respective definitions:
+
+$$Cov(X,Y) = \hat { \sigma } _ { x , y } =\frac { \sum _ { t = 1 } ^ { n } \left( X _ { t } - \overline { X } \right) \left( Y _ { t } - \overline { Y } \right) } { n - 1 }    $$  
+$$Var(X) = \hat { \sigma } _ { x } ^ { 2 } = \frac { \sum ( X - \overline { X } ) ^ { 2 } } { n - 1 }$$
+
+$$ \hat { \beta } _ { 1 } ^ { [ 4 ] } = \frac{\frac { \sum _ { i = 1 } ^ { n } \left( X _ { t } - \overline { X } \right) \left( Y _ { t } - \overline { Y } \right) } { n - 1 }}{\frac { \sum ( X - \overline { X } ) ^ { 2 } } { n - 1 }}  $$
+Simplify: 
+
+
+$$ \hat { \beta } _ { 1 } ^ { [ 4 ] } =  \frac { \sum _ { t = 1 } ^ { n } \left( X _ { t } - \overline { X } \right) \left( Y _ { t } - \overline { Y } \right) } { \sum _ { t = 1 } ^ { n } \left( X _ { t } - \overline { X } \right) ^ { 2 } }  $$
+
+
+
+
+
+Substitute $Y_t \ and\  \overline{ Y }$ from above and simplify the expression: 
+
+$$ \begin{gathered}\hat { \beta } _ { 1 } ^ { [ 4 ] } =  \frac { \sum _ { t = 1 } ^ { n } \left( X _ { t } - \overline { X } \right) \left(\beta _ { 0 } + \beta _ { 1 } x _ { t } + u _ { t }   - (\beta _ { 0 } + \beta _ { 1 } \overline { x } + \overline { u } )  \right) } { \sum _ { t = 1 } ^ { n } \left( X _ { t } - \overline { X } \right) ^ { 2 } } \\=   \frac { \sum _ { t = 1 } ^ { n } \left( X _ { t } - \overline { X } \right) \left( \beta _ { 1 }( X _ { t } \ - \ \overline { X }  ) + u _ { t }  - \overline { u } )  \right) } { \sum _ { t = 1 } ^ { n } \left( X _ { t } - \overline { X } \right) ^ { 2 } }\end{gathered}$$
+
+Simplify further, take individual sums and take out constant terms: 
+
+$$\begin{gathered} \hat { \beta } _ { 1 } ^ { [ 4 ] } =  \frac {  \beta _ { 1 }\sum _ { t = 1 } ^ { n } \left( X _ { t } - \overline { X } \right)^2 + \sum _ { t = 1 } ^ { n } \left( X _ { t } - \overline { X } \right)\left(  u _ { t }  - \overline { u } )  \right) } { \sum _ { t = 1 } ^ { n } \left( X _ { t } - \overline { X } \right) ^ { 2 } } \\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \  =  \frac {  \beta _ { 1 }\sum _ { t = 1 } ^ { n } \left( X _ { t } - \overline { X } \right)^2 + \sum _ { t = 1 } ^ { n } \left( X _ { t } - \overline { X } \right)u _ { t } - \left(\overline { u }\sum _ { t = 1 } ^ { n }\left( X _ { t } - \overline { X } \right)   \right) } { \sum _ { t = 1 } ^ { n } \left( X _ { t } - \overline { X } \right) ^ { 2 } }\end{gathered}$$
+
+*Note:* $\sum _ { t = 1 } ^ { n } \left( X _ { t } - \overline { X } \right) = 0 \ because \ \sum_ { t = 1 } ^ { n } X _ { t } - \sum_ { t = 1 } ^ { n }\overline { X } = n\overline { X } - n\overline { X } = 0$
+
+$$ \begin{gathered}\hat { \beta } _ { 1 } ^ { [ 4 ] } = \frac {  \beta _ { 1 }\sum _ { t = 1 } ^ { n } \left( X _ { t } - \overline { X } \right)^2 + \sum _ { t = 1 } ^ { n } \left( X _ { t } - \overline { X } \right)u _ { t }   } { \sum _ { t = 1 } ^ { n } \left( X _ { t } - \overline { X } \right) ^ { 2 } } \\ \ \ \ \ \ \ \ = \frac{\beta _ { 1 }\sum _ { t = 1 } ^ { n } \left( X _ { t } - \overline { X } \right)^2 }{\sum _ { t = 1 } ^ { n } \left( X _ { t } - \overline { X } \right)^2} + \frac{\sum _ { t = 1 } ^ { n } \left( X _ { t } - \overline { X } \right)u _ { t } }{\sum _ { t = 1 } ^ { n } \left( X _ { t } - \overline { X } \right)^2}\end{gathered}$$
+
+
+$$ = \beta _ { 1 } + \frac{\sum _ { t = 1 } ^ { n } \left( X _ { t } - \overline { X } \right)u _ { t } }{\sum _ { t = 1 } ^ { n } \left( X _ { t } - \overline { X } \right)^2}$$
+
+Now take expectations conditional on X: 
+
+$$\begin{gathered}E[\hat { \beta } _ { 1 } ^ { [ 4 ] } | X] = E[\beta _ { 1 }] + E[\frac{\sum _ { t = 1 } ^ { n } \left( X _ { t } - \overline { X } \right)u _ { t } }{\sum _ { t = 1 } ^ { n } \left( X _ { t } - \overline { X } \right)^2}] \\ \textrm{Because the expectation of a sum is equal to the sum of indiviudal expectations}\end{gathered}$$
+
+
+$$\begin{gathered} \ \ \ \ \   = \beta _ { 1 } + \frac{1}{\sum _ { t = 1 } ^ { n }\left( X _ { t } - \overline { X } \right)}E[u_t] \\ \textrm{Because the X terms can be treated as constants given X } \end{gathered}$$
+
+$$E[\ u\ | \ X] = 0 \implies E[\ u_t \ | \ X] = 0\ for \ all \ t$$
+$$ E[\hat { \beta } _ { 1 } ^ { [ 4 ] } | X] = \beta _ { 1 } + 0  = \beta _ { 1 }$$
+Therefore $\hat { \beta } _ { 1 } ^ { [ 4 ] } = \frac { \hat { \sigma } _ { x , y } } { \hat { \sigma } _ { x } ^ { 2 } }$ is an unbiased estimator of $\beta_{1}$
+
+
+##b)
+
+The variance of the unexplained component (error) of excess returns of Quantas, conditional on the excess returns of the market portfolio is constant for all values of excess return of the market portfolio. 
+
+That is, $Var[\  u\ | X] = \sigma^2I_n \ \textrm{where} \ u\ \textrm{is the unexplained component of excess return of Quantas,} \\ X \ \textrm{is the excess returns of the market portfolio and} \ I_n \ \textrm{is an identity matrix}  \ $ This assumption also implies that the covariance of all the error terms is 0. 
+
+This means that the error term of the excess returns of Quantas is normally distributed, $u \sim N(0, \sigma^2)$
+
+If this is the case then the error of the excess return of Quantas is homoskedastic and the OLS estimator will have a smaller variance than the other estimators.
+
+
+
+
+#Question 2
+
+####1. Introduction 
+
+In 2015, it was estimated that 526,000 child deaths were caused by diarrhoeal infections. This is a vast improvement from the estimated figure of 1.2 million in the year 2000 which is in part due to initiatives by the World Health Organisation(WHO) and UNICEF. Diarrhea and other water-borne diseases remain to be a deadly threat currently but are believed to be largely preventable. The WHO believes that better water and sanitation could save 361,000 children under 5 each year. Studies have shown that contaminated water and minimal sanitation are related to the spread and transmission of diarrhea and other deadly diseases such as cholera, dysentery, hepatitis A and typhoid. Inadequate or inappropriately managed water and sanitation services increase the transmission of these diseases, and the exposure of children to these preventable health risks. Improvements in water infrastructure and sanitation have been promoted as fundamental public health measures to better the overall health of the population. If piped and regulated water supplies were to be achieved around the world, about 7.6 billion cases of diarrhea could be prevented each year as well as other diseases, this represents a 70% reduction. These are essential interventions for the health of the populations and of younger children in particular.
+
+These preventative actions have proven effective in the past. Chicago and other American cities saw major decreases in under 5 mortality, mainly attributed to water purification procedures which led to the eradication of diarrheal diseases and other water based diseases. Research in 2001 by North Western and George Mason University's concluded that water infrastructure, in particular, efforts to move water intakes far from sewage outflows were the main driving force in reducing water-related mortality. 
+
+Evidence outlined below from WHO data suggests funding to infrastructure that improves water and sanitation services could significantly decrease under 5 mortality.
+
+
+
+
+$$ \widehat{Mortality} = 147.08 - 8.4log(GDP) - 0.04Water - 0.5Sanitation $$
+
+
+
+
+
